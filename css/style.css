@@ -383,3 +383,55 @@ a.text-link-on-dark:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* Mobile Smartphone Optimization (600px & below) */
+@media (max-width: 600px) {
+  .container,
+  .container-wide {
+    padding-inline: 16px;
+  }
+
+  .product-tile {
+    padding-block: 52px;
+  }
+
+  .tile-header {
+    margin-bottom: 20px;
+  }
+
+  .sub-nav-category {
+    font-size: 15px;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 175px;
+  }
+
+  .site-footer {
+    padding: 44px 16px 28px 16px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-display {
+    font-size: clamp(26px, 7.5vw, 34px);
+    line-height: 1.15;
+  }
+
+  .display-lg {
+    font-size: clamp(22px, 6vw, 28px);
+  }
+
+  .lead {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+}
+

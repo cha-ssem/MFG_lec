@@ -1602,3 +1602,143 @@
   background-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
 }
+
+/* ==========================================================================
+   Mobile Smartphone Optimization (max-width: 600px)
+   PC 환경에는 전혀 영향을 주지 않고 스마트폰 화면에서만 동작하는 전용 규칙
+   ========================================================================== */
+@media (max-width: 600px) {
+  /* 1. Sub-nav 실습 타이머 컴팩트화 */
+  .timer-widget {
+    padding: 3px 8px;
+    gap: 5px;
+  }
+
+  .timer-label {
+    display: none; /* '실습 타이머' 라벨 숨김으로 가로폭 절약 */
+  }
+
+  .timer-preset-btn {
+    display: none; /* 3m, 5m, 10m 프리셋 버튼 숨김 (PC에서만 사용) */
+  }
+
+  .timer-display {
+    font-size: 13px;
+    min-width: 38px;
+  }
+
+  .timer-btn {
+    padding: 2px 7px;
+    font-size: 10px;
+  }
+
+  /* 2. Global-nav LLM 드롭다운 버튼 */
+  .btn-nav-dropdown {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .dropdown-menu {
+    min-width: 210px;
+    right: 0;
+  }
+
+  /* 3. Hero 강사 포트폴리오 배너 줄바꿈 및 모바일 폭 대응 */
+  .hero-instructor-banner {
+    flex-wrap: wrap !important;
+    justify-content: center;
+    padding: 6px 14px !important;
+    font-size: 12.5px !important;
+    gap: 6px !important;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  /* 4. 카드 패딩 및 둥근 모서리 최적화 */
+  .store-card,
+  .store-card-dark {
+    padding: 16px;
+    border-radius: var(--rounded-md);
+  }
+
+  .safety-card {
+    padding: 16px;
+  }
+
+  /* 5. 프롬프트 패널 가독성 & 여백 */
+  .prompt-panel-header {
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .prompt-panel-content {
+    padding: 14px 12px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* 6. 샘플 파일 다운로드 & 미리보기 뱃지 */
+  .sample-file-badge {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .sample-file-badge .preview-filename {
+    font-size: 12px;
+  }
+
+  .sample-file-badge .badge-action-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .btn-sample-download {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  /* 7. 부서별 프롬프트 탭 스크롤 & 터치 */
+  .tab-nav {
+    justify-content: flex-start;
+    padding-inline: 4px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .refine-chips {
+    gap: 6px;
+  }
+
+  .refine-chip {
+    padding: 5px 11px;
+    font-size: 12px;
+  }
+
+  /* 8. 이미지 확대 라이트박스 닫기 버튼 모바일 터치 최적화 */
+  .lightbox-modal {
+    padding: 12px;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    z-index: 10005;
+  }
+
+  .lightbox-caption {
+    font-size: 13px;
+    max-width: 90vw;
+  }
+}
+
