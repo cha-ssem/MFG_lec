@@ -1,0 +1,76 @@
+/* ==========================================================================
+   CSS Design Tokens & Theme Variables
+   Strictly aligned with Apple Web Design Language (design.md)
+   ========================================================================== */
+
+:root {
+  /* Brand & Accent Colors */
+  --colors-primary: #0066cc;          /* Action Blue - single brand-level interactive color */
+  --colors-primary-focus: #0071e3;    /* Focus Blue - keyboard focus ring outline */
+  --colors-primary-on-dark: #2997ff;  /* Sky Link Blue - in-copy links on dark tiles */
+
+  /* Surface Colors */
+  --colors-canvas: #ffffff;           /* Pure White - dominant canvas, store cards */
+  --colors-canvas-parchment: #f5f5f7; /* Signature Apple off-white parchment */
+  --colors-surface-pearl: #fafafc;    /* Pearl Button near-white fill */
+  --colors-surface-tile-1: #272729;   /* Near-Black Tile 1 - primary dark tile */
+  --colors-surface-tile-2: #2a2a2c;   /* Near-Black Tile 2 - micro-step lighter */
+  --colors-surface-tile-3: #252527;   /* Near-Black Tile 3 - micro-step darker */
+  --colors-surface-black: #000000;    /* Pure Black - global nav bar */
+  --colors-surface-chip-translucent: rgba(210, 210, 215, 0.64);
+
+  /* Hairlines & Borders */
+  --colors-divider-soft: rgba(0, 0, 0, 0.04);
+  --colors-hairline: #e0e0e0;         /* 1px hairline on store utility cards */
+  --colors-hairline-dark: rgba(255, 255, 255, 0.12);
+
+  /* Text Colors */
+  --colors-ink: #1d1d1f;              /* Near-Black Ink - headlines, body text on light */
+  --colors-body: #1d1d1f;             /* 17px body tone */
+  --colors-body-on-dark: #ffffff;     /* All text on dark tiles & global nav */
+  --colors-body-muted: #cccccc;       /* Secondary copy on dark tiles */
+  --colors-ink-muted-80: #333333;     /* Body text on pearl/parchment surfaces */
+  --colors-ink-muted-48: #7a7a7a;     /* Fine-print and legal text */
+
+  /* Typography Tokens (Pretendard matching Apple SF Pro & Sandoll Neo) */
+  --font-display: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-text: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Font Weights (300, 400, 600, 700 - 500 is deliberately absent!) */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Spacing System (Base unit 8px) */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 17px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-section: 80px;
+
+  /* Border Radius Scale */
+  --rounded-none: 0px;                /* Full-bleed product tiles */
+  --rounded-xs: 5px;
+  --rounded-sm: 8px;                  /* Dark utility buttons, inner card imagery */
+  --rounded-md: 11px;                 /* Pearl button capsules */
+  --rounded-lg: 18px;                 /* Store utility cards */
+  --rounded-pill: 9999px;             /* Primary blue pill CTAs, sub-nav buy button */
+  --rounded-full: 9999px;
+
+  /* Single System Shadow (Product imagery only) */
+  --shadow-product: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
+
+  /* Header Heights */
+  --global-nav-height: 44px;
+  --sub-nav-height: 52px;
+  --total-nav-height: 96px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>중소기업 실무자를 위한 AI 활용과 업무자동화 | 강의 포털</title>
+  <meta name="description" content="중소 제조·유통 실무자를 위한 생성형 AI 프롬프트 설계, 엑셀 업무자동화, 부품 입출고 관리 시스템 실습 강의 포털">
+
+  <!-- Web Fonts: Pretendard Variable for Apple SF Pro & Sandoll Neo typography -->
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+
+  <!-- CSS Stylesheets (Strictly aligned with Apple Web Design Language via design.md) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+  <!-- =======================================================================
+       1. Global Nav (Ultra-thin Black Bar, 44px)
+       ======================================================================= -->
+  <header class="global-nav">
+    <div class="container-wide">
+      <a href="#hero" class="global-nav-brand">
+        <span style="font-weight: 700;"></span>
+        <span>AI Lecture</span>
+      </a>
+
+      <ul class="global-nav-links">
+        <li><a href="#hero" class="global-nav-link">개요</a></li>
+        <li><a href="#section-prompt" class="global-nav-link">프롬프트 설계</a></li>
+        <li><a href="#section-excel" class="global-nav-link">엑셀 자동화</a></li>
+        <li><a href="#section-inventory" class="global-nav-link">입출고 시스템</a></li>
+        <li><a href="#section-compare" class="global-nav-link">도구 비교</a></li>
+        <li><a href="#section-glossary" class="global-nav-link">용어 사전</a></li>
+        <li><a href="#section-closing" class="global-nav-link">마무리</a></li>
+        <li><a href="https://9core.notion.site/AI-3f10ce4c022480fa89f2fd36d0a3e579?source=copy_link" target="_blank"
+            rel="noopener noreferrer" class="global-nav-link">노션 강의노트 ↗</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <!-- LLM 서비스 바로가기 드롭다운 메뉴 -->
+        <div class="global-nav-dropdown" id="llmDropdown">
+          <button type="button" class="btn-nav-dropdown" id="llmDropdownBtn" aria-haspopup="true" aria-expanded="false">
+            <span>LLM 서비스 바로가기</span>
+            <span class="dropdown-chevron">▾</span>
+          </button>
+          <ul class="dropdown-menu" id="llmDropdownMenu">
+            <li>
+              <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="dropdown-item">
+                <span class="dropdown-icon">🤖</span>
+                <div class="dropdown-text">
+                  <span class="dropdown-title">ChatGPT</span>
+                  <span class="dropdown-desc">OpenAI</span>
+                </div>
+                <span class="dropdown-ext">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="dropdown-item">
+                <span class="dropdown-icon">✨</span>
+                <div class="dropdown-text">
+                  <span class="dropdown-title">Gemini</span>
+                  <span class="dropdown-desc">Google</span>
+                </div>
+                <span class="dropdown-ext">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="dropdown-item">
+                <span class="dropdown-icon">🧠</span>
+                <div class="dropdown-text">
+                  <span class="dropdown-title">Claude</span>
+                  <span class="dropdown-desc">Anthropic (강의 실습 권장)</span>
+                </div>
+                <span class="dropdown-ext">↗</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       2. Sub-Nav (Frosted Glass Sticky Bar, 52px)
+       ======================================================================= -->
+  <nav class="sub-nav-frosted">
+    <div class="container-wide">
+      <a href="#hero" class="sub-nav-category">
+        중소기업 AI 업무자동화
+      </a>
+
+      <div class="sub-nav-actions">
+        <!-- 타이머 위젯 -->
+        <div class="timer-widget">
+          <span class="timer-label">실습 타이머</span>
+          <span class="timer-display" id="timerDisplay">05:00</span>
+          <div class="timer-controls">
+            <button class="timer-btn" id="timerPlayPause" title="시작/일시정지">▶</button>
+            <button class="timer-btn" id="timerReset" title="초기화">↺</button>
+          </div>
+          <div style="display: flex; gap: 2px;">
+            <button class="timer-btn timer-preset-btn" data-minutes="3">3m</button>
+            <button class="timer-btn timer-preset-btn" data-minutes="5">5m</button>
+            <button class="timer-btn timer-preset-btn" data-minutes="10">10m</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main style="margin-top: var(--total-nav-height);">
+    <!-- =======================================================================
+         Tile 1 (Light): Hero - Pure White Canvas
+         ======================================================================= -->
+    <section class="product-tile product-tile-light" id="hero">
+      <div class="container">
+        <div class="tile-header">
+          <h1 class="hero-display tile-title">
+            중소기업 실무자를 위한<br>AI 활용과 업무자동화
+          </h1>
+          <p class="lead tile-lead">
+            내일 당장 업무에 쓰는 생성형 AI<br>프롬프트 설계부터 엑셀 자동화, 입출고 시스템까지
+          </p>
+
+          <!-- 강사 포트폴리오 및 강의 목표 배너 -->
+          <div
+            style="display: inline-flex; align-items: center; gap: 12px; background: var(--colors-canvas-parchment); padding: 8px 18px; border-radius: var(--rounded-pill); margin-top: 14px; font-size: 14px;">
+            <span style="font-weight: 600; color: var(--colors-ink);">강사 차은정</span>
+            <span style="color: var(--colors-hairline);">|</span>
+            <a href="https://chassem.ai.kr/portfolio.html" target="_blank" rel="noopener noreferrer"
+              style="color: var(--colors-primary); text-decoration: none; font-weight: 500;">
+              포트폴리오 보기 (Career, Media & IT) ↗
+            </a>
+          </div>
+
+        </div>
+
+        <!-- 오늘 강의의 3대 핵심 목표 (Store Utility Cards) -->
+        <div class="grid-3" style="margin-top: var(--spacing-xl);">
+          <div class="store-card">
+            <span class="caption-apple" style="color: var(--colors-primary); font-weight: 600;">GOAL 01</span>
+            <h3 style="font-size: 20px; font-weight: 600; margin-top: 6px; margin-bottom: 8px;">프롬프트 설계 & 실행</h3>
+            <p style="font-size: 15px; color: var(--colors-ink-muted-80); line-height: 1.45;">
+              역할-배경-지시-형식 표준 공식으로 거래명세서 사진을 표로 추출하고, 부서별 실무 메일을 즉시 생성합니다.
+            </p>
+          </div>
+          <div class="store-card">
+            <span class="caption-apple" style="color: var(--colors-primary); font-weight: 600;">GOAL 02</span>
+            <h3 style="font-size: 20px; font-weight: 600; margin-top: 6px; margin-bottom: 8px;">엑셀 작업 AI 자동화</h3>
+            <p style="font-size: 15px; color: var(--colors-ink-muted-80); line-height: 1.45;">
+              제각각인 부품 품번과 단위를 AI 규칙으로 일괄 정제하고, XLOOKUP·SUMIFS 수식과 조건부 서식을 완성합니다.
+            </p>
+          </div>
+          <div class="store-card">
+            <span class="caption-apple" style="color: var(--colors-primary); font-weight: 600;">GOAL 03</span>
+            <h3 style="font-size: 20px; font-weight: 600; margin-top: 6px; margin-bottom: 8px;">부품 입출고 시스템 맛보기</h3>
+            <p style="font-size: 15px; color: var(--colors-ink-muted-80); line-height: 1.45;">
+              단일 HTML 입출고 웹페이지 시스템을 구축해보고, Claude Code를 활용한 라이브 기능 추가를 경험합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         Tile 2 (Dark): Part 1 - Near-Black Tile (#272729)
+         ======================================================================= -->
+    <section class="product-tile product-tile-dark" id="section-prompt">
+      <div class="container">
+        <div class="tile-header">
+          <p class="caption-apple" style="color: var(--colors-primary-on-dark); font-weight: 600; margin-bottom: 6px;">
+            PART 01</p>
+          <h2 class="display-lg tile-title">프롬프트를 설계하여 실행해보기</h2>
+          <p class="lead lead-on-dark tile-lead">
+            업무 상황에 맞게 LLM을 선택하고, 표준 프롬프트 공식과 검증 절차로 신뢰할 수 있는 결과를 얻습니다.
+          </p>
+
+          <div class="tile-cta-group">
+            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer"
+              style="color: var(--colors-primary-on-dark); font-size: 15px; text-decoration: none;">
+              실습 도구: Claude 웹 서비스 (https://claude.ai) ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- 인포그래픽 2열 갤러리 그리드 (1, 2번째 이미지) -->
+        <div class="infographic-gallery-2col" style="margin-bottom: var(--spacing-xl);">
+          <div class="gallery-item-card" data-full="images/Gemini_Generated_Image_z7nv6xz7nv6xz7nv.png"
+            data-title="주요 LLM 서비스 특징 비교 (ChatGPT · Gemini · Claude)">
+            <div class="gallery-thumb-wrapper">
+              <img src="images/Gemini_Generated_Image_z7nv6xz7nv6xz7nv.png" alt="주요 LLM 서비스 특징 비교" class="gallery-thumb"
+                loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">주요 LLM 서비스 비교</span>
+              <span class="gallery-item-desc">ChatGPT · Gemini · Claude</span>
+            </div>
+          </div>
+
+          <div class="gallery-item-card" data-full="images/claude_trio_infographic.jpg"
+            data-title="Claude 3.5 모델 라인업 (Haiku / Sonnet / Opus)">
+            <div class="gallery-thumb-wrapper">
+              <img src="images/claude_trio_infographic.jpg" alt="Claude 3.5 모델 라인업" class="gallery-thumb"
+                loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">Claude 3.5 모델 라인업</span>
+              <span class="gallery-item-desc">Haiku · Sonnet · Opus 특징</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4단계 공식 다크 카드 (왼쪽: 3번째 인포그래픽 이미지, 오른쪽: 1~4단계 설명) -->
+        <div class="store-card-dark" style="margin-bottom: var(--spacing-xl);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+            <h3 style="font-size: 21px; font-weight: 600; color: #ffffff;">실무 프롬프트 4단계 필수 공식</h3>
+            <span style="font-size: 13px; color: var(--colors-primary-on-dark);">클릭 시 인포그래픽 확대</span>
+          </div>
+
+          <div class="formula-layout">
+            <!-- 왼쪽: 3번째 이미지 (클릭 시 확대 뷰어) -->
+            <div class="gallery-item-card" data-full="images/claude_prompt_formula_infographic.jpg"
+              data-title="실무 프롬프트 4단계 필수 공식 (역할 · 배경 · 지시 · 형식)">
+              <div class="gallery-thumb-wrapper" style="aspect-ratio: auto; height: 100%; min-height: 260px;">
+                <img src="images/claude_prompt_formula_infographic.jpg" alt="실무 프롬프트 4단계 공식 인포그래픽" class="gallery-thumb"
+                  style="object-fit: cover; height: 100%;" loading="lazy">
+                <div class="gallery-zoom-overlay">
+                  <span class="zoom-icon">🔍</span>
+                  <span class="zoom-text">클릭하여 크게 보기</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 오른쪽: 기존 1~4단계 설명 -->
+            <div class="formula-steps-list">
+              <div class="formula-step-item">
+                <div class="formula-step-header">
+                  <span class="formula-step-badge">STEP 1</span>
+                  <span class="formula-step-name">역할 (Role)</span>
+                </div>
+                <div class="formula-step-text">"너는 자동차 부품 제조사 구매 담당자야."</div>
+              </div>
+
+              <div class="formula-step-item">
+                <div class="formula-step-header">
+                  <span class="formula-step-badge">STEP 2</span>
+                  <span class="formula-step-name">배경 (Context)</span>
+                </div>
+                <div class="formula-step-text">"원자재 공급사가 단가 8% 인상을 일방 통보해왔어."</div>
+              </div>
+
+              <div class="formula-step-item">
+                <div class="formula-step-header">
+                  <span class="formula-step-badge">STEP 3</span>
+                  <span class="formula-step-name">지시 (Task)</span>
+                </div>
+                <div class="formula-step-text">"인상 근거 자료를 요구하고 분기별 단계적 인상을 제안하는 회신 메일을 써줘."</div>
+              </div>
+
+              <div class="formula-step-item">
+                <div class="formula-step-header">
+                  <span class="formula-step-badge">STEP 4</span>
+                  <span class="formula-step-name">형식 (Format)</span>
+                </div>
+                <div class="formula-step-text">"정중하면서도 단호한 어조로, 3개 문단 이내의 비즈니스 양식으로."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- (실습 1) 거래명세서 사진 판독 & 검증 실습 (다크 패널) -->
+        <div id="practice-ocr" class="store-card-dark"
+          style="margin-bottom: var(--spacing-xl); scroll-margin-top: 120px;">
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">(실습 1) 거래명세서 파일 내용을 표로 만들기</h3>
+            <div class="sample-file-badge">
+              <div class="sample-file-info">
+                <span class="preview-icon">🖼️</span>
+                <span class="preview-filename">sample-01-resin.png</span>
+              </div>
+              <div class="sample-file-actions">
+                <button type="button" class="badge-action-btn badge-btn-zoom" data-full="images/sample-01-resin.png"
+                  data-title="실습용 거래명세서 원본 서류 (sample-01-resin.png)" title="클릭하여 원본 서류 사진 크게 보기">
+                  🔍 크게 보기
+                </button>
+                <a href="images/sample-01-resin.png" download="sample-01-resin.png"
+                  class="badge-action-btn badge-btn-download" title="실습용 서류 이미지 파일 직접 다운로드">
+                  ⬇️ 다운로드
+                </a>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-body-muted); margin-bottom: var(--spacing-md);">
+            스마트폰으로 촬영한 서류 사진을 Claude 대화창에 첨부하고 아래 순서대로 프롬프트를 전송하세요.
+          </p>
+
+          <!-- Step 1 -->
+          <div class="prompt-panel-dark">
+            <div class="prompt-panel-header">
+              <span class="prompt-panel-title">STEP 1 : 사진 속 품목 추출</span>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">첨부한 거래명세서의 품목 표를 읽어서 표로 만들어줘.
+열: 귀사 품번, 공급사 코드, 품명, 규격, 단위, 수량
+단가와 금액은 빼줘.
+표 위에 명세서 번호, 거래 일자, 공급자 상호를 따로 적어줘.
+읽기 어려운 칸은 추측하지 말고 '확인 필요'라고 적어줘.</div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="prompt-panel-dark">
+            <div class="prompt-panel-header">
+              <span class="prompt-panel-title">STEP 2 : 엑셀 복사용 탭 구분 변환</span>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">이 표를 엑셀에 바로 붙여넣을 수 있게 탭(Tab)으로 구분한 텍스트 형식으로 다시 보여줘.</div>
+          </div>
+
+          <!-- Step 3 (노션 추가 핵심 프롬프트: 검증) -->
+          <div class="prompt-panel-dark" style="border-left: 3px solid #ff9f0a;">
+            <div class="prompt-panel-header">
+              <div>
+                <span class="prompt-panel-title">STEP 3 : 원문 대조 검증 (합계 수량 비교)</span>
+                <span
+                  style="font-size: 11px; background: rgba(255, 159, 10, 0.2); color: #ff9f0a; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">환각
+                  방지 검산</span>
+              </div>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">표의 행 수와 수량 합계를 알려줘. 그리고 서류 아래쪽 합계 칸에 적힌 수량과 같은지 비교해줘.</div>
+          </div>
+        </div>
+
+        <!-- (실습 2) 부서별 실무 프롬프트 모음 (11종) -->
+        <div id="practice-prompts" class="store-card-dark"
+          style="margin-bottom: var(--spacing-xl); scroll-margin-top: 120px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">(실습 2) 업무별 프롬프트 모음 (11종)</h3>
+            <span style="font-size: 13px; color: #a1a1a6;">공통·구매·자재·품질·영업·관리</span>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-body-muted);">
+            부서 탭을 선택하고 원하는 프롬프트를 복사한 뒤, 내 상황에 맞게 괄호 안의 내용을 수정하여 실행해 보세요.
+          </p>
+
+          <div class="tab-nav" id="deptTabNav">
+            <!-- JS 렌더링 -->
+          </div>
+          <div id="deptTabContent">
+            <!-- JS 렌더링 -->
+          </div>
+
+          <!-- 다듬기 팁 (후속 프롬프트 칩) -->
+          <div
+            style="margin-top: var(--spacing-lg); padding-top: var(--spacing-md); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <span style="font-size: 15px; font-weight: 600; color: #ffffff;">💡 결과 다듬기 팁 (클릭 시 복사)</span>
+              <span style="font-size: 12px; color: #a1a1a6;">원하는 칩을 눌러 대화창에 바로 붙여넣기</span>
+            </div>
+            <div class="refine-chips" id="refineChipsContainer">
+              <!-- JS 렌더링 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ⚠️ 생성형 AI 사용 시 유의사항 (할루시네이션 & 기업 보안) -->
+        <div class="store-card-dark">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="font-size: 18px;">⚠️</span>
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">생성형 AI 사용 시 필수 유의사항</h3>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-body-muted);">
+            AI의 결과물은 반드시 실무자의 교차 검증을 거쳐야 하며, 기업 내부 기밀 정보 보호 원칙을 준수해야 합니다.
+          </p>
+
+          <div class="safety-grid" id="safetyRulesContainer">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         Tile 3 (Light): Part 2 - Pure White Canvas
+         ======================================================================= -->
+    <section class="product-tile product-tile-light" id="section-excel">
+      <div class="container">
+        <div class="tile-header">
+          <p class="caption-apple" style="color: var(--colors-primary); font-weight: 600; margin-bottom: 6px;">PART 02
+          </p>
+          <h2 class="display-lg tile-title">AI를 활용하여 엑셀 작업해보기</h2>
+          <p class="lead tile-lead">
+            정돈되지 않은 부품 목록을 AI로 자동 정제하고 필수 수식과 <br>조건부 서식을 완성합니다.
+          </p>
+        </div>
+
+        <!-- 문제점 vs 정답 체크포인트 -->
+        <div class="grid-2" style="margin-bottom: var(--spacing-xl);">
+          <div class="store-card">
+            <h3 style="font-size: 19px; font-weight: 600; margin-bottom: 10px; color: var(--colors-ink);">기존 부품목록.xlsx의
+              문제점</h3>
+            <ul
+              style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: var(--colors-ink-muted-80);">
+              <li>• <strong>품번 표기 제각각:</strong> <code>sk-ad-001</code>, <code>SK AD 003</code>, <code>SKPD001</code> 혼재
+              </li>
+              <li>• <strong>불필요한 중복 행:</strong> 표기만 달라 중복 등록된 부품 다수</li>
+              <li>• <strong>단위 혼용:</strong> <code>ea</code>, <code>Ea</code>, <code>개</code>, <code>박스</code>,
+                <code>Box</code> 혼재
+              </li>
+              <li>• <strong>애매한 안전재고:</strong> <code>150개</code>, <code>약 80</code>, <code>1백20</code> 텍스트 혼입</li>
+            </ul>
+          </div>
+
+          <div class="store-card" style="border-color: rgba(0, 102, 204, 0.3);">
+            <h3 style="font-size: 19px; font-weight: 600; margin-bottom: 10px; color: var(--colors-primary);">AI 정제 후
+              표준화 기준</h3>
+            <ul
+              style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: var(--colors-ink);">
+              <li>• <strong>표준 품번:</strong> 대문자 <code>SK-분류-세자리번호</code> 통일</li>
+              <li>• <strong>중복 제거:</strong> 고유 품번 기준 1건만 단일화 유지</li>
+              <li>• <strong>표준 단위:</strong> <code>EA</code>, <code>BOX</code>, <code>BAG</code> 3대 단위 규격화</li>
+              <li>• <strong>'확인 필요' 열 신설:</strong> 모호한 데이터는 추측하지 않고 검수 표시</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 엑셀 자동 정제 프롬프트 카드 (노션 본문 7대 규칙) -->
+        <div id="practice-excel-clean" class="store-card"
+          style="margin-bottom: var(--spacing-xl); scroll-margin-top: 120px;">
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 0;">엑셀 데이터 자동 정제 프롬프트</h3>
+            <a href="부품목록_실습.xlsx" download="부품목록_실습.xlsx" class="btn-sample-download"
+              title="실습용 엑셀 파일 다운로드 (부품목록_실습.xlsx)">
+              <span class="preview-icon">📊</span>
+              <span class="preview-filename">부품목록_실습.xlsx</span>
+              <span class="download-badge">⬇️ 다운로드</span>
+            </a>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-ink-muted-80); margin-bottom: 14px;">
+            <code>부품목록_실습.xlsx</code> 파일을 다운로드하여 Claude 대화창에 올린 후 아래 프롬프트를 전송하세요.
+          </p>
+
+          <div class="prompt-panel-light">
+            <div class="prompt-panel-header">
+              <span class="prompt-panel-title">PROMPT : 데이터 표준화 & 정제 규칙</span>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">첨부한 엑셀의 '부품목록' 시트는 여러 사람이 입력해서 표기가 제각각이야. 아래 규칙으로 정리해서 엑셀 파일로 돌려줘.
+1. 품번은 SK-분류-세자리번호 형식 (예: SK-AD-005). 대문자, 공백 없이.
+2. 품번이 같은 행은 하나만 남겨.
+3. 빈 행과 메모 행은 지워.
+4. 단위는 EA, BOX, BAG 중 하나로.
+5. 거래처는 (주), ㈜, 주식회사, 띄어쓰기를 빼고 회사 이름만.
+6. 안전재고는 숫자만. 뜻이 애매한 값은 지우지 말고 '확인 필요' 열을 만들어 이유를 적어.
+7. 등록일은 YYYY-MM-DD. 연도가 없으면 2026년.
+마지막에 무엇을 몇 건 고쳤는지 표로 알려줘.</div>
+          </div>
+
+          <!-- 열 이동 및 단가표 수식 프롬프트 -->
+          <div class="prompt-panel-light" style="margin-top: var(--spacing-md);">
+            <div class="prompt-panel-header">
+              <span class="prompt-panel-title">PROMPT : 열 이동 및 단가표 매칭 수식</span>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">현재 I열의 내용을 J열로 이동 후 다음 작업을 수행해줘. 엑셀에서 쓸 수 있는 함수로 알려줘. '부품목록' 시트 A열 품번으로 '단가표' 시트(A열 품번, B열 단가)에서 단가를 찾아 I열에 넣는 수식. 단가가 없으면 '단가 없음'이라고 나오도록</div>
+          </div>
+        </div>
+
+        <!-- Claude for Microsoft 365 연동 안내 카드 (노션 링크 반영) -->
+        <div class="store-card"
+          style="margin-bottom: var(--spacing-xl); background: linear-gradient(135deg, rgba(0, 102, 204, 0.04) 0%, rgba(245, 245, 247, 0.8) 100%); border-color: rgba(0, 102, 204, 0.2);">
+          <div class="formula-layout">
+            <!-- 왼쪽: M365 Excel 내 Claude 실행 실제 화면 (클릭 시 확대 뷰어) -->
+            <div class="gallery-item-card" data-full="images/KakaoTalk_20261006_181552625.png"
+              data-title="Claude for Microsoft 365 (Excel 내 Claude 사이드바 실제 구동 화면)">
+              <div class="gallery-thumb-wrapper" style="aspect-ratio: auto; height: 100%; min-height: 240px;">
+                <img src="images/KakaoTalk_20261006_181552625.png" alt="Excel 내 Claude 연동 실행 화면" class="gallery-thumb"
+                  style="object-fit: cover; height: 100%;" loading="lazy">
+                <div class="gallery-zoom-overlay">
+                  <span class="zoom-icon">🔍</span>
+                  <span class="zoom-text">클릭하여 크게 보기</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 오른쪽: 엔터프라이즈 솔루션 설명 및 링크 -->
+            <div style="display: flex; flex-direction: column; justify-content: center; text-align: left;">
+              <span class="caption-apple" style="color: var(--colors-primary); font-weight: 600;">ENTERPRISE
+                SOLUTION</span>
+              <h3 style="font-size: 20px; font-weight: 600; margin-top: 4px; margin-bottom: 8px;">Claude for Microsoft
+                365 연동</h3>
+              <p style="font-size: 15px; color: var(--colors-ink-muted-80); line-height: 1.6; margin-bottom: 14px;">
+                웹에 파일을 올리지 않고도 <strong>Excel, Word, PowerPoint, Teams</strong> 등 사내 마이크로소프트 365 환경에서 Claude AI를 직접 활용할 수
+                있습니다.
+              </p>
+              <ul
+                style="list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--colors-ink-muted-80); margin-bottom: 16px;">
+                <li>• <strong>엑셀 시트 실시간 조작:</strong> 조건부 서식, 수식 작성 및 데이터 정제 지원</li>
+                <li>• <strong>기업 보안성 강화:</strong> 사내 M365 보안 가이드라인 내 안전한 데이터 처리</li>
+                <li>• <strong>차트 & 인사이트 추천:</strong> 업무 시트 기반 경영진 보고용 시각화 제안</li>
+              </ul>
+              <div>
+                <a href="https://claude.com/ko/claude-for-microsoft-365" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary" style="display: inline-flex;">
+                  공식 연동 가이드 확인 ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 조건부 서식 & 차트 제안 카드 -->
+        <div class="store-card">
+          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 6px;">조건부 서식 & 차트 제안</h3>
+          <p style="font-size: 15px; color: var(--colors-ink-muted-80); margin-bottom: 16px;">
+            Excel 내 Claude 실습 프롬프트
+          </p>
+
+          <div class="grid-2">
+            <!-- 프롬프트 1 : 조건부 서식 설정 -->
+            <div class="prompt-panel-light">
+              <div class="prompt-panel-header">
+                <span class="prompt-panel-title">PROMPT : 조건부 서식 설정</span>
+                <button class="copy-btn">복사</button>
+              </div>
+              <div class="prompt-panel-content">확인필요 항목에 작성된 내용이 있으면 그 행 전체를 연한 빨강으로 칠하는 조건부 서식을 설정하고 싶어.</div>
+            </div>
+
+            <!-- 프롬프트 2 : 차트 제안 받기 -->
+            <div class="prompt-panel-light">
+              <div class="prompt-panel-header">
+                <span class="prompt-panel-title">PROMPT : 차트 제안 받기</span>
+                <button class="copy-btn">복사</button>
+              </div>
+              <div class="prompt-panel-content">부품목록 표 내용을 활용하여 차트로 표시하면 좋을 부분이 있는지 검토해보고, 차트로 표시할 내용을 제안해줘.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         Tile 4 (Dark): Part 3 - Near-Black Tile (#272729)
+         ======================================================================= -->
+    <section class="product-tile product-tile-dark" id="section-inventory">
+      <div class="container">
+        <div class="tile-header">
+          <p class="caption-apple" style="color: var(--colors-primary-on-dark); font-weight: 600; margin-bottom: 6px;">
+            PART 03</p>
+          <h2 class="display-lg tile-title">부품 입출고 관리 시스템 맛보기</h2>
+          <p class="lead lead-on-dark tile-lead">
+            웹 브라우저 기반의 입출고 관리 솔루션 맛보기
+          </p>
+          <div class="tile-cta-group">
+            <a href="https://cha-ssem.github.io/inventory/" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary">
+              실제 부품 입출고 관리 시스템 열기 ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- 4단계 워크플로우 -->
+        <div class="grid-4" style="margin-bottom: var(--spacing-xl);">
+          <div class="store-card-dark">
+            <span style="font-size: 12px; color: var(--colors-primary-on-dark); font-weight: 600;">STEP 01</span>
+            <div style="font-weight: 600; font-size: 16px; margin-top: 6px;">바코드/사진 스캔</div>
+            <div style="font-size: 13px; color: var(--colors-body-muted); margin-top: 4px;">부품 바코드 인식 또는 서류 사진 첨부</div>
+          </div>
+          <div class="store-card-dark">
+            <span style="font-size: 12px; color: var(--colors-primary-on-dark); font-weight: 600;">STEP 02</span>
+            <div style="font-weight: 600; font-size: 16px; margin-top: 6px;">자동 매칭 & 검수</div>
+            <div style="font-size: 13px; color: var(--colors-body-muted); margin-top: 4px;">부품 마스터 품번 자동 연결 및 수량 대조
+            </div>
+          </div>
+          <div class="store-card-dark">
+            <span style="font-size: 12px; color: var(--colors-primary-on-dark); font-weight: 600;">STEP 03</span>
+            <div style="font-weight: 600; font-size: 16px; margin-top: 6px;">원클릭 재고 반영</div>
+            <div style="font-size: 13px; color: var(--colors-body-muted); margin-top: 4px;">재고 수량 실시간 가감 및 거래 이력 생성
+            </div>
+          </div>
+          <div class="store-card-dark">
+            <span style="font-size: 12px; color: var(--colors-primary-on-dark); font-weight: 600;">STEP 04</span>
+            <div style="font-weight: 600; font-size: 16px; margin-top: 6px;">안전재고 경고</div>
+            <div style="font-size: 13px; color: var(--colors-body-muted); margin-top: 4px;">부족 품목 대시보드 알림 및 발주 <br>목록화
+            </div>
+          </div>
+        </div>
+
+        <!-- 시스템 구성 & 대시보드 2열 이미지 갤러리 (PART 01 스타일: system-flow-slide-1.png & main_contents.png) -->
+        <div class="infographic-gallery-2col" style="margin-bottom: var(--spacing-xl);">
+          <!-- 1번째 이미지: 전체 아키텍처 -->
+          <div class="gallery-item-card" data-full="images/system-flow-slide-1.png"
+            data-title="부품 입출고 관리 시스템 전체 아키텍처 (어디서 무엇을 처리하나)">
+            <div class="gallery-thumb-wrapper" style="background-color: #ffffff;">
+              <img src="images/system-flow-slide-1.png" alt="부품 입출고 관리 시스템 전체 아키텍처" class="gallery-thumb"
+                style="object-fit: contain; width: 100%; height: 100%;" loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">시스템 전체 아키텍처</span>
+              <span class="gallery-item-desc">어디서 무엇을 처리하나 (Apps Script · 구글 시트)</span>
+            </div>
+          </div>
+
+          <!-- 2번째 이미지: 메인 대시보드 화면 -->
+          <div class="gallery-item-card" data-full="images/main_contents.png" data-title="부품 입출고 관리 시스템 메인 대시보드 화면">
+            <div class="gallery-thumb-wrapper" style="background-color: #ffffff;">
+              <img src="images/main_contents.png" alt="부품 입출고 관리 시스템 메인 대시보드" class="gallery-thumb"
+                style="object-fit: cover; width: 100%; height: 100%;" loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">시스템 메인 대시보드</span>
+              <span class="gallery-item-desc">재고 현황 · 안전재고 경고 · 입출고 이력</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- [직접 만들기] Claude.ai 단일 HTML 웹페이지 생성 프롬프트 (노션 내용) -->
+        <div id="practice-inventory-app" class="store-card-dark"
+          style="margin-bottom: var(--spacing-xl); scroll-margin-top: 120px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">(실습) Claude.ai에서 단일 HTML 웹페이지 시스템 만들기</h3>
+            <span style="font-size: 13px; color: var(--colors-primary-on-dark);">수강생 실습용</span>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-body-muted); margin-bottom: var(--spacing-md);">
+            외부 서버나 DB 없이, 브라우저의 <code>localStorage</code>를 활용해 새로고침해도 데이터가 보존되는 완전한 입출고 관리 시스템을 Claude 대화창에서 단 하나의 프롬프트로
+            생성합니다.
+          </p>
+
+          <div class="prompt-panel-dark">
+            <div class="prompt-panel-header">
+              <span class="prompt-panel-title">PROMPT : 단일 HTML 입출고 웹페이지 시스템 전체 생성</span>
+              <button class="copy-btn">복사</button>
+            </div>
+            <div class="prompt-panel-content">자동차 플라스틱 부품 제조 중소기업에서 쓸 "부품 입출고관리" 웹페이지를 HTML 파일 하나로 만들어줘.
+화면은 한국어, 큰 글씨와 높은 대비로 해줘. 프로젝터로도 읽히고 휴대폰 화면(400px)에서도 쓸 수 있어야 해.
+데이터는 브라우저 저장소(localStorage)에 저장하고, 인터넷 없이 동작해야 해.
+[데이터]- 부품: 품번, 품명, 규격, 단위, 안전재고, 보관 위치, 사용 여부- 입출고 기록: ID, 구분(입고/출고/취소), 품번, 수량, 거래처 또는 사용처, 작업자, 메모, 원래 기록 ID(취소일 때), 일시- 현재고는 따로 저장하지 말고 기록을 합산해서 계산해. 기록은 수정하거나 지우지 않고 추가만 해.
+[화면] 위쪽 메뉴로 이동
+1. 대시보드: 숫자 카드 4개(전체 품목, 안전재고 미달, 오늘 입고 건수, 오늘 출고 건수), 안전재고 미달 목록, 최근 입출고 10건
+2. 입고: 스캔 입력칸에 항상 커서가 있게 해줘. USB 바코드 스캐너는 품번을 입력하고 Enter를 보내는데, Enter는 부품을 고르기만 하고 저장은 [입력] 단추로만 해.
+부품을 고르면 품명과 현재고를 보여주고, 수량(기본 1)·거래처·작업자·메모를 받아.
+같은 품번을 다시 스캔하면 수량을 1 올려줘. 없는 품번이면 경고하고 "새 부품으로 등록" 단추를 보여줘.
+저장되면 화면 효과와 소리로 알려줘.
+3. 출고: 입고와 같은 방식이고, 거래처 대신 사용처(생산 라인 또는 고객사)를 받아.
+현재고보다 많이 출고하면 막고, 출고한 뒤 안전재고 아래로 떨어지면 경고해줘.
+4. 재고 현황: 품목별 현재고 표. 안전재고 미달은 빨간색으로 맨 위에 보여줘. 품번·품명·위치로 검색해.
+5. 이력: 기간·품목·구분으로 조회해. 잘못된 기록은 [취소]를 누르면 "취소" 기록을 새로 남겨 바로잡아.
+6. 부품 관리: 등록·수정. 품번이 중복되면 막아줘. 기록이 있는 부품은 삭제 대신 "사용 중지"로 바꿔.
+7. 설정: 샘플 데이터 불러오기, 전체 초기화(확인 단계 거치기)
+[품번 체계] SK-분류-세자리번호
+분류: AD 에어벤트 덕트, PD 페달 부품, CS 케이스류, RM 원자재(수지), SB 부자재
+[샘플 데이터] 가상 데이터로 부품 25개(분류별 4~6개, 예: SK-AD-001 에어벤트 덕트 센터, SK-RM-001 PP 수지 25kg/포)와 최근 2주 입출고 기록 100건쯤 만들어줘. 안전재고 미달 품목이 3~4개 보이게 해줘.
+거래처 예시는 대한수지, 한빛폴리머, 동방부품, 세진포장이고 사용처 예시는 사출 1라인, 사출 2라인, 조립라인, 고객사 납품이야.
+화면에 출력하는 사용자 입력은 모두 이스케이프해줘. 수량은 1 이상의 정수만 받아.</div>
+          </div>
+
+          <div
+            style="background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--colors-primary-on-dark); border-radius: 4px; padding: 12px 16px; font-size: 14px; line-height: 1.6; margin-top: var(--spacing-md); color: #d6d6d6;">
+            <div>💡 위의 1. 기본 화면 생성 이후, 다음의 과정을 진행하여 비슷하게 구축할 수 있습니다.</div>
+            <div style="color: var(--colors-primary-on-dark); margin-top: 4px; font-weight: 500;">
+              2. 엑셀, 백업, 라벨, 카메라 스캔 → 3. 구글 시트 연동(여러 기기가 함께 쓰기) → 4. 서류 사진으로 입고(Claude API)
+            </div>
+          </div>
+        </div>
+
+        <!-- Claude.ai vs Claude Code 실무 비교 (PART 03 내용에 이어서 표시) -->
+        <div class="store-card-dark" id="section-compare">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">Claude.ai vs Claude Code 실무 비교</h3>
+            <span style="font-size: 13px; color: var(--colors-primary-on-dark);">도구별 특성 비교</span>
+          </div>
+          <p style="font-size: 15px; color: var(--colors-body-muted); margin-bottom: var(--spacing-md);">
+            개인 비서로서의 웹 대화형 AI와 회사의 사내 프로그램을 직접 구축하는 엔지니어 도구의 차이.
+          </p>
+
+          <!-- 업무 상황별 비교 테이블 (Apple Dark Table) -->
+          <div class="comparison-table-wrapper" style="margin-block: 0;">
+            <table class="apple-table">
+              <thead>
+                <tr>
+                  <th style="width: 20%;">업무 상황</th>
+                  <th style="width: 40%;">Claude.ai (웹 대화형 서비스)</th>
+                  <th style="width: 40%;" class="col-highlight">Claude Code (터미널 에이전트 도구)</th>
+                </tr>
+              </thead>
+              <tbody id="comparisonTableBody">
+                <!-- JS 렌더링 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         Tile 5 (Parchment): Reference & Glossary - Apple Off-White (#f5f5f7)
+         ======================================================================= -->
+    <section class="product-tile product-tile-parchment" id="section-glossary">
+      <div class="container">
+        <div class="tile-header">
+          <p class="caption-apple" style="color: var(--colors-primary); font-weight: 600; margin-bottom: 6px;">REFERENCE
+          </p>
+          <h2 class="display-lg tile-title">핵심 AI 실무 용어 사전</h2>
+          <p class="lead tile-lead">
+            강의 중 자주 언급된 인공지능 및 자동화 기술 용어를 정리했습니다.
+          </p>
+        </div>
+
+        <!-- FAQ 아코디언 -->
+        <div class="accordion" id="glossaryContainer">
+          <!-- JS 렌더링 -->
+        </div>
+
+        <!-- 강의를 마무리하며... -->
+        <div id="section-closing" class="store-card"
+          style="margin-top: var(--spacing-xxl); background-color: #ffffff; scroll-margin-top: 120px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div data-full="images/learning_ex.png" data-title="강의를 마무리하며..."
+              style="display: inline-flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 12px; margin: -6px -12px; border-radius: var(--rounded-md); transition: background-color var(--transition-fast);"
+              onmouseover="this.style.backgroundColor='rgba(0, 102, 204, 0.06)'"
+              onmouseout="this.style.backgroundColor='transparent'"
+              title="클릭하여 '강의를 마무리하며...' 일러스트 팝업 보기">
+              <h3 style="font-size: 21px; font-weight: 600; color: var(--colors-ink); margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+                강의를 마무리하며...
+                <span style="font-size: 13px; font-weight: 500; color: var(--colors-primary); background: rgba(0, 102, 204, 0.1); padding: 3px 10px; border-radius: var(--rounded-pill);">🔍 팝업 보기 ↗</span>
+              </h3>
+            </div>
+            <span style="font-size: 13px; color: var(--colors-primary); font-weight: 600;">CLOSING</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================================
+       Footer (Apple Parchment Footer with Dense Link Columns at 2.41 line-height)
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container-wide">
+      <div class="footer-top">
+        <div class="footer-col">
+          <h4>강의 커리큘럼</h4>
+          <ul class="footer-links-dense">
+            <li><a href="#section-prompt">1. 프롬프트 설계 & 실행</a></li>
+            <li><a href="#section-excel">2. 엑셀 AI 자동화</a></li>
+            <li><a href="#section-inventory">3. 입출고 시스템 맛보기</a></li>
+            <li><a href="#section-compare">4. 도구 비교 분석</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>실습 가이드</h4>
+          <ul class="footer-links-dense">
+            <li><a href="#practice-ocr">거래명세서 OCR & 검증</a></li>
+            <li><a href="#practice-prompts">부서별 11개 프롬프트</a></li>
+            <li><a href="#practice-excel-clean">엑셀 데이터 정제</a></li>
+            <li><a href="#practice-inventory-app">단일 HTML 입출고 앱 제작</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>시스템 & 도구</h4>
+          <ul class="footer-links-dense">
+            <li><a href="https://cha-ssem.github.io/inventory/" target="_blank" rel="noopener noreferrer">입출고 관리 데모
+                ↗</a></li>
+            <li><a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude.ai 웹 ↗</a></li>
+            <li><a href="https://claude.com/ko/claude-for-microsoft-365" target="_blank"
+                rel="noopener noreferrer">Claude for MS 365 ↗</a></li>
+            <li><a href="#section-glossary">용어 사전 (FAQ)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>강사 소개</h4>
+          <ul class="footer-links-dense">
+            <li><a href="https://chassem.ai.kr/portfolio.html" target="_blank" rel="noopener noreferrer">차은정 포트폴리오 ↗</a>
+            </li>
+            <li><a href="mailto:jjung9935@naver.com" id="copyEmailLink"
+                title="클릭 시 이메일 주소(jjung9935@naver.com)가 복사됩니다">강의 문의하기</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Copyright © 2026 차은정 (Cha-ssem). All rights reserved.</span>
+        <span>중소기업 실무자를 위한 AI 활용과 업무자동화</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 플로팅 퀵 내비게이션 (화면 우측 하단) -->
+  <aside class="floating-quick-nav" id="floatingQuickNav" aria-label="빠른 메뉴 이동">
+    <div class="floating-nav-menu" id="floatingNavMenu">
+      <div class="floating-nav-header">
+        <span>빠른 메뉴 이동</span>
+        <button type="button" class="floating-nav-close-btn" id="floatingNavCloseBtn" aria-label="닫기">✕</button>
+      </div>
+      <ul class="floating-nav-list">
+        <li><a href="#hero" class="floating-nav-link"><span class="nav-num">TOP</span>개요</a></li>
+        <li><a href="#section-prompt" class="floating-nav-link"><span class="nav-num">01</span>프롬프트 설계</a></li>
+        <li><a href="#section-excel" class="floating-nav-link"><span class="nav-num">02</span>엑셀 자동화</a></li>
+        <li><a href="#section-inventory" class="floating-nav-link"><span class="nav-num">03</span>입출고 시스템</a></li>
+        <li><a href="#section-compare" class="floating-nav-link"><span class="nav-num">04</span>도구 비교</a></li>
+        <li><a href="#section-glossary" class="floating-nav-link"><span class="nav-num">05</span>용어 사전</a></li>
+        <li><a href="#section-closing" class="floating-nav-link"><span class="nav-num">END</span>마무리</a></li>
+      </ul>
+    </div>
+    <button type="button" class="floating-nav-toggle-btn" id="floatingNavToggleBtn" aria-label="메뉴 열기/닫기" title="빠른 메뉴 이동">
+      <span class="floating-btn-icon">🧭</span>
+      <span class="floating-btn-text">메뉴</span>
+    </button>
+  </aside>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- 이미지 확대 모달 (라이트박스) -->
+  <div id="imageLightbox" class="lightbox-modal" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-container">
+      <button type="button" class="lightbox-close" id="lightboxClose" title="닫기 (ESC)">✕</button>
+      <div class="lightbox-content">
+        <img id="lightboxImg" src="" alt="확대 이미지" class="lightbox-image">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 8px;">
+          <div class="lightbox-caption" id="lightboxCaption" style="margin-top: 0;"></div>
+          <a id="lightboxDownload" href="" download="" class="btn-sample-download btn-dark-variant"
+            style="font-size: 12px; padding: 4px 12px; text-decoration: none;" title="원본 이미지 파일 다운로드">
+            <span class="preview-icon">⬇️</span>
+            <span>다운로드</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/prompt-copy.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

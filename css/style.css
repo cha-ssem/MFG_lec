@@ -1,0 +1,385 @@
+/* ==========================================================================
+   Main Stylesheet: Reverent Photography & Minimal UI
+   Strictly aligned with Apple Web Design Language (design.md)
+   ========================================================================== */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-text);
+  background-color: var(--colors-canvas);
+  color: var(--colors-ink);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--total-nav-height) + 16px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.47;
+  font-size: 17px; /* typography.body: Apple runs paragraph at 17px, not 16px */
+  font-weight: var(--weight-regular); /* 400 */
+  letter-spacing: -0.374px;
+  color: var(--colors-ink);
+  background-color: var(--colors-canvas);
+  overflow-x: hidden;
+}
+
+/* Typography Hierarchy (Apple tight display tracking) */
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5.5vw, 56px);
+  font-weight: var(--weight-semibold); /* 600 */
+  line-height: 1.07;
+  letter-spacing: -0.28px;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: var(--weight-semibold);
+  line-height: 1.10;
+  letter-spacing: 0;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: var(--weight-semibold);
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+}
+
+.lead {
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: var(--weight-regular); /* 400 */
+  line-height: 1.14;
+  letter-spacing: 0.196px;
+  color: var(--colors-ink);
+}
+
+.lead-on-dark {
+  color: var(--colors-body-muted);
+}
+
+.tagline {
+  font-size: 21px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+}
+
+.body-strong {
+  font-size: 17px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.24;
+  letter-spacing: -0.374px;
+}
+
+.caption-apple {
+  font-size: 14px;
+  font-weight: var(--weight-regular);
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+  color: var(--colors-ink-muted-48);
+}
+
+/* Links */
+a.text-link {
+  color: var(--colors-primary); /* Action Blue #0066cc */
+  text-decoration: none;
+  font-size: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+a.text-link:hover {
+  text-decoration: underline;
+}
+
+a.text-link-on-dark {
+  color: var(--colors-primary-on-dark); /* Sky Link Blue #2997ff */
+  text-decoration: none;
+  font-size: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+a.text-link-on-dark:hover {
+  text-decoration: underline;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1024px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-lg);
+}
+
+.container-wide {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   Navigation: Two-Row Nav (Global Nav + Frosted Sub-Nav)
+   ========================================================================== */
+
+/* 1. Global Nav (Pure Black 44px) */
+.global-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--global-nav-height);
+  background-color: var(--colors-surface-black);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.global-nav .container-wide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.global-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.global-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+
+.global-nav-link {
+  color: #d6d6d6;
+  font-size: 12px;
+  font-weight: var(--weight-regular);
+  letter-spacing: -0.12px;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.global-nav-link:hover {
+  color: #ffffff;
+}
+
+/* 2. Sub-Nav (Frosted Glass 52px, Sticky below Global Nav) */
+.sub-nav-frosted {
+  position: fixed;
+  top: var(--global-nav-height);
+  left: 0;
+  right: 0;
+  height: var(--sub-nav-height);
+  background-color: rgba(245, 245, 247, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--colors-divider-soft);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+.sub-nav-frosted .container-wide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-nav-category {
+  font-size: 21px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--colors-ink);
+  text-decoration: none;
+}
+
+.sub-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.sub-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.sub-nav-link {
+  font-size: 14px;
+  font-weight: var(--weight-regular);
+  letter-spacing: -0.224px;
+  color: var(--colors-ink-muted-80);
+  text-decoration: none;
+}
+
+.sub-nav-link:hover {
+  color: var(--colors-primary);
+}
+
+/* ==========================================================================
+   Full-Bleed Alternating Tiles: Light ↔ Dark ↔ Parchment (No Borders)
+   ========================================================================== */
+
+.product-tile {
+  padding-block: var(--spacing-section);
+  text-align: center;
+  position: relative;
+}
+
+.product-tile-light {
+  background-color: var(--colors-canvas); /* White #ffffff */
+  color: var(--colors-ink);
+}
+
+.product-tile-parchment {
+  background-color: var(--colors-canvas-parchment); /* Parchment #f5f5f7 */
+  color: var(--colors-ink);
+}
+
+.product-tile-dark {
+  background-color: var(--colors-surface-tile-1); /* Near-Black Tile 1 #272729 */
+  color: var(--colors-body-on-dark);
+}
+
+.product-tile-dark-2 {
+  background-color: var(--colors-surface-tile-2); /* Near-Black Tile 2 #2a2a2c */
+  color: var(--colors-body-on-dark);
+}
+
+/* Header Inside Tile */
+.tile-header {
+  max-width: 780px;
+  margin-inline: auto;
+  margin-bottom: var(--spacing-xl);
+}
+
+.tile-title {
+  margin-bottom: 8px;
+}
+
+.tile-lead {
+  margin-bottom: var(--spacing-md);
+}
+
+.tile-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+/* Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  text-align: left;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  text-align: left;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  text-align: left;
+}
+
+/* Footer (Parchment with Dense Link Stacks at 2.41 line-height) */
+.site-footer {
+  background-color: var(--colors-canvas-parchment);
+  color: var(--colors-ink-muted-80);
+  padding: 64px var(--spacing-lg);
+  border-top: 1px solid var(--colors-divider-soft);
+  font-size: 14px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  color: var(--colors-ink);
+  margin-bottom: 12px;
+}
+
+.footer-links-dense {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links-dense a {
+  color: var(--colors-ink-muted-80);
+  text-decoration: none;
+  line-height: 2.41; /* typography.dense-link */
+  font-size: 13px;
+}
+
+.footer-links-dense a:hover {
+  text-decoration: underline;
+  color: var(--colors-ink);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--colors-divider-soft);
+  padding-top: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--colors-ink-muted-48);
+}
+
+/* Responsive */
+@media (max-width: 834px) {
+  .global-nav-links {
+    display: none;
+  }
+  .sub-nav-menu {
+    display: none;
+  }
+  .grid-2, .grid-3, .grid-4, .footer-top {
+    grid-template-columns: 1fr;
+  }
+}
