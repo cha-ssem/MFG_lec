@@ -613,6 +613,7 @@ button.dropdown-item {
 
 .apple-table {
   width: 100%;
+  min-width: 520px;
   border-collapse: collapse;
   text-align: left;
   font-size: 14px;
@@ -872,6 +873,9 @@ button.dropdown-item {
 
 .floating-nav-menu {
   width: 220px;
+  max-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
   background: rgba(29, 29, 31, 0.94);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -902,6 +906,7 @@ button.dropdown-item {
   font-weight: 600;
   color: #a1a1a6;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .floating-nav-close-btn {
@@ -923,6 +928,8 @@ button.dropdown-item {
   list-style: none;
   margin: 0;
   padding: 6px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .floating-nav-link {
