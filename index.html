@@ -132,15 +132,15 @@
           </p>
 
           <!-- 강사 포트폴리오 및 강의 목표 배너 -->
-          <div class="hero-instructor-banner"
-            style="display: inline-flex; align-items: center; gap: 12px; background: var(--colors-canvas-parchment); padding: 8px 18px; border-radius: var(--rounded-pill); margin-top: 14px; font-size: 14px;">
+          <a href="https://chassem.ai.kr" target="_blank" rel="noopener noreferrer" class="hero-instructor-banner"
+            style="display: inline-flex; align-items: center; gap: 12px; background: var(--colors-canvas-parchment); padding: 8px 18px; border-radius: var(--rounded-pill); margin-top: 14px; font-size: 14px; text-decoration: none; color: inherit; transition: background-color var(--transition-fast), transform var(--transition-fast);"
+            title="차은정 강사 프로필 및 강의자료 링크트리 (chassem.ai.kr) 바로가기">
             <span style="font-weight: 600; color: var(--colors-ink);">강사 차은정</span>
             <span style="color: var(--colors-hairline);">|</span>
-            <a href="https://chassem.ai.kr/portfolio.html" target="_blank" rel="noopener noreferrer"
-              style="color: var(--colors-primary); text-decoration: none; font-weight: 500;">
-              포트폴리오 보기 (Career, Media & IT) ↗
-            </a>
-          </div>
+            <span style="color: var(--colors-primary); font-weight: 500;">
+              프로필 및 강의자료 링크트리 보기 ↗
+            </span>
+          </a>
 
         </div>
 
@@ -368,12 +368,12 @@
           </div>
         </div>
 
-        <!-- (실습 2) 부서별 실무 프롬프트 모음 (11종) -->
+        <!-- (실습 2) 부서별 실무 프롬프트 모음 (40종) -->
         <div id="practice-prompts" class="store-card-dark"
           style="margin-bottom: var(--spacing-xl); scroll-margin-top: 120px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">(실습 2) 업무별 프롬프트 모음 (11종)</h3>
-            <span style="font-size: 13px; color: #a1a1a6;">공통·구매·자재·품질·영업·관리</span>
+            <h3 style="font-size: 20px; font-weight: 600; color: #ffffff;">(실습 2) 업무별 프롬프트 모음 (40종)</h3>
+            <span style="font-size: 13px; color: #a1a1a6;">공통·영업·구매·자재·생산·품질·안전·인사·총무·재무·기획</span>
           </div>
           <p style="font-size: 15px; color: var(--colors-body-muted);">
             부서 탭을 선택하고 원하는 프롬프트를 복사한 뒤, 내 상황에 맞게 괄호 안의 내용을 수정하여 실행해 보세요.
@@ -598,7 +598,7 @@
           <div class="tile-cta-group">
             <a href="https://cha-ssem.github.io/inventory/" target="_blank" rel="noopener noreferrer"
               class="btn btn-primary">
-              실제 부품 입출고 관리 시스템 열기 ↗
+              부품·점검 통합관리 시스템 열기 ↗
             </a>
           </div>
         </div>
@@ -630,29 +630,61 @@
           </div>
         </div>
 
-        <!-- 시스템 구성 & 대시보드 2열 이미지 갤러리 (PART 01 스타일: system-flow-slide-1.png & main_contents.png) -->
-        <div class="infographic-gallery-2col" style="margin-bottom: var(--spacing-xl);">
-          <!-- 1번째 이미지: 전체 아키텍처 -->
+        <!-- 1. 시스템 전체 아키텍처 v1 & v2 (1줄 2열 비교 갤러리) -->
+        <div class="infographic-gallery-compare" style="margin-bottom: var(--spacing-lg);">
+          <!-- 아키텍처 v1 -->
           <div class="gallery-item-card" data-full="images/system-flow-slide-1.png"
-            data-title="부품 입출고 관리 시스템 전체 아키텍처 (어디서 무엇을 처리하나)">
-            <div class="gallery-thumb-wrapper" style="background-color: #ffffff;">
-              <img src="images/system-flow-slide-1.png" alt="부품 입출고 관리 시스템 전체 아키텍처" class="gallery-thumb"
-                style="object-fit: contain; width: 100%; height: 100%;" loading="lazy">
+            data-title="부품 입출고 관리 시스템 전체 아키텍처 v1">
+            <div class="gallery-thumb-wrapper" style="background-color: #ffffff; aspect-ratio: 1836 / 996;">
+              <img src="images/system-flow-slide-1.png" alt="시스템 전체 아키텍처 v1" class="gallery-thumb"
+                style="object-fit: cover; width: 100%; height: 100%; display: block;" loading="lazy">
               <div class="gallery-zoom-overlay">
                 <span class="zoom-icon">🔍</span>
                 <span class="zoom-text">클릭하여 크게 보기</span>
               </div>
             </div>
             <div class="gallery-item-info">
-              <span class="gallery-item-title">시스템 전체 아키텍처</span>
-              <span class="gallery-item-desc">어디서 무엇을 처리하나 (Apps Script · 구글 시트)</span>
+              <span class="gallery-item-title">시스템 전체 아키텍처 v1</span>
+              <span class="gallery-item-desc">기본 시스템 아키텍처 흐름</span>
             </div>
           </div>
 
-          <!-- 2번째 이미지: 메인 대시보드 화면 -->
-          <div class="gallery-item-card" data-full="images/main_contents.png" data-title="부품 입출고 관리 시스템 메인 대시보드 화면">
+          <!-- 확장·개선 커넥터 화살표 -->
+          <div class="gallery-compare-connector" aria-hidden="true">
+            <span class="gallery-compare-badge">확장·개선</span>
+            <div class="gallery-compare-arrow">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 아키텍처 v2 -->
+          <div class="gallery-item-card" data-full="images/system-flow-slide-v2_1.png"
+            data-title="부품 입출고 관리 시스템 전체 아키텍처 v2">
+            <div class="gallery-thumb-wrapper" style="background-color: #ffffff; aspect-ratio: 1836 / 996;">
+              <img src="images/system-flow-slide-v2_1.png" alt="시스템 전체 아키텍처 v2" class="gallery-thumb"
+                style="object-fit: cover; width: 100%; height: 100%; display: block;" loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">시스템 전체 아키텍처 v2</span>
+              <span class="gallery-item-desc">확장 아키텍처 흐름 (Apps Script · 구글 시트 연동)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 시스템 메인 대시보드 v1 & v2 (1줄 2열 비교 갤러리) -->
+        <div class="infographic-gallery-compare" style="margin-bottom: var(--spacing-xl);">
+          <!-- 메인 대시보드 v1 -->
+          <div class="gallery-item-card" data-full="images/main_contents.png"
+            data-title="부품 입출고 관리 시스템 메인 대시보드 v1">
             <div class="gallery-thumb-wrapper" style="background-color: #ffffff;">
-              <img src="images/main_contents.png" alt="부품 입출고 관리 시스템 메인 대시보드" class="gallery-thumb"
+              <img src="images/main_contents.png" alt="시스템 메인 대시보드 v1" class="gallery-thumb"
                 style="object-fit: cover; width: 100%; height: 100%;" loading="lazy">
               <div class="gallery-zoom-overlay">
                 <span class="zoom-icon">🔍</span>
@@ -660,8 +692,36 @@
               </div>
             </div>
             <div class="gallery-item-info">
-              <span class="gallery-item-title">시스템 메인 대시보드</span>
+              <span class="gallery-item-title">시스템 메인 대시보드 v1</span>
               <span class="gallery-item-desc">재고 현황 · 안전재고 경고 · 입출고 이력</span>
+            </div>
+          </div>
+
+          <!-- 확장·개선 커넥터 화살표 -->
+          <div class="gallery-compare-connector" aria-hidden="true">
+            <span class="gallery-compare-badge">확장·개선</span>
+            <div class="gallery-compare-arrow">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 메인 대시보드 v2 -->
+          <div class="gallery-item-card" data-full="images/main_contents2.png"
+            data-title="부품 입출고 관리 시스템 메인 대시보드 v2">
+            <div class="gallery-thumb-wrapper" style="background-color: #ffffff;">
+              <img src="images/main_contents2.png" alt="시스템 메인 대시보드 v2" class="gallery-thumb"
+                style="object-fit: cover; width: 100%; height: 100%;" loading="lazy">
+              <div class="gallery-zoom-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="zoom-text">클릭하여 크게 보기</span>
+              </div>
+            </div>
+            <div class="gallery-item-info">
+              <span class="gallery-item-title">시스템 메인 대시보드 v2</span>
+              <span class="gallery-item-desc">고도화 UI 대시보드 · 통합 점검 현황</span>
             </div>
           </div>
         </div>
@@ -770,8 +830,8 @@
           </p>
         </div>
 
-        <!-- FAQ 아코디언 -->
-        <div class="accordion" id="glossaryContainer">
+        <!-- 용어 사전 2열 인터랙티브 그리드 -->
+        <div class="glossary-grid" id="glossaryContainer">
           <!-- JS 렌더링 -->
         </div>
 
@@ -835,7 +895,7 @@
         <div class="footer-col">
           <h4>강사 소개</h4>
           <ul class="footer-links-dense">
-            <li><a href="https://chassem.ai.kr/portfolio.html" target="_blank" rel="noopener noreferrer">차은정 포트폴리오 ↗</a>
+            <li><a href="https://chassem.ai.kr" target="_blank" rel="noopener noreferrer">차은정 포트폴리오 ↗</a>
             </li>
             <li><a href="mailto:jjung9935@naver.com" id="copyEmailLink"
                 title="클릭 시 이메일 주소(jjung9935@naver.com)가 복사됩니다">강의 문의하기</a></li>
@@ -858,6 +918,21 @@
         <button type="button" class="floating-nav-close-btn" id="floatingNavCloseBtn" aria-label="닫기">✕</button>
       </div>
       <ul class="floating-nav-list">
+        <!-- 1. QR코드 보기 -->
+        <li>
+          <button type="button" class="floating-nav-link" data-full="images/qrcode-chassem.jpg" data-title="차은정 강사 QR코드 (카카오톡 오픈채팅 / 포트폴리오)">
+            <span class="nav-num">QR</span>QR코드 보기 🔍
+          </button>
+        </li>
+        <!-- 2. Claude.ai로 이동 -->
+        <li>
+          <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" class="floating-nav-link">
+            <span class="nav-num">AI</span>Claude.ai로 이동 ↗
+          </a>
+        </li>
+        <!-- 3. 구분선 -->
+        <li class="floating-nav-divider" role="separator"></li>
+        <!-- 기존 내용 -->
         <li><a href="#hero" class="floating-nav-link"><span class="nav-num">TOP</span>개요</a></li>
         <li><a href="#section-prompt" class="floating-nav-link"><span class="nav-num">01</span>프롬프트 설계</a></li>
         <li><a href="#section-excel" class="floating-nav-link"><span class="nav-num">02</span>엑셀 자동화</a></li>

@@ -126,55 +126,21 @@ function renderServices() {
   }).join('');
 }
 
-const PROMPT_STORAGE_KEY = 'manufacture_custom_dept_prompts';
-
-/**
- * 로컬스토리지에 저장된 커스텀 프롬프트 데이터 반환
- */
-function getStoredPrompts() {
-  try {
-    const raw = localStorage.getItem(PROMPT_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch (e) {
-    return {};
-  }
+// 기존 로컬스토리지에 저장되어 있던 커스텀 프롬프트 캐시 초기화
+try {
+  localStorage.removeItem('manufacture_custom_dept_prompts');
+} catch (e) {
+  // no-op
 }
 
 /**
- * 프롬프트 텍스트를 로컬스토리지에 영구 저장
- */
-function savePromptText(id, text) {
-  try {
-    const stored = getStoredPrompts();
-    stored[id] = text;
-    localStorage.setItem(PROMPT_STORAGE_KEY, JSON.stringify(stored));
-  } catch (e) {
-    console.error('로컬스토리지 저장 실패:', e);
-  }
-}
-
-/**
- * 프롬프트 텍스트를 원래 기본값으로 복원
- */
-function resetPromptText(id) {
-  try {
-    const stored = getStoredPrompts();
-    delete stored[id];
-    localStorage.setItem(PROMPT_STORAGE_KEY, JSON.stringify(stored));
-  } catch (e) {
-    console.error('로컬스토리지 삭제 실패:', e);
-  }
-}
-
-/**
- * 부서별 맞춤 프롬프트 탭 및 콘텐츠 렌더링 (노션 11개 프롬프트 + 수정 버튼, 영구 저장 및 개선 비교 뷰)
+ * 부서별 맞춤 프롬프트 탭 및 콘텐츠 렌더링 (기본 프롬프트 및 ✨ 프롬프트 개선 비교 뷰)
  */
 function renderDeptTabs() {
   const navContainer = document.getElementById('deptTabNav');
   const contentContainer = document.getElementById('deptTabContent');
   if (!navContainer || !contentContainer || !LECTURE_DATA.deptPrompts) return;
 
-  const storedPrompts = getStoredPrompts();
   const depts = Object.keys(LECTURE_DATA.deptPrompts);
 
   navContainer.innerHTML = depts.map((key, index) => {
@@ -192,23 +158,18 @@ function renderDeptTabs() {
 
     const cardsHtml = deptInfo.prompts.map((item, pIndex) => {
       const promptId = `${key}_${pIndex}`;
-      const isCustomized = Object.prototype.hasOwnProperty.call(storedPrompts, promptId);
-      const displayText = isCustomized ? storedPrompts[promptId] : item.text;
-      const customizedBadge = isCustomized ? '<span class="badge-customized">사용자 설정됨</span>' : '';
+      const displayText = item.text;
       const improvedText = item.improvedText || item.text;
 
       return `
         <div class="prompt-panel-dark" id="prompt-panel-${promptId}" data-prompt-id="${promptId}" data-default-text="${encodeURIComponent(item.text)}" data-improved-text="${encodeURIComponent(improvedText)}" style="margin-bottom: var(--spacing-md); text-align: left;">
           <div class="prompt-panel-header">
             <div>
-              <div style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
-                <span class="prompt-panel-title">${item.title}</span>
-                <span class="badge-slot">${customizedBadge}</span>
-              </div>
+              <span class="prompt-panel-title">${item.title}</span>
               ${item.situation ? `<div style="font-size: 12px; color: #a1a1a6; margin-top: 2px;">상황: ${item.situation}</div>` : ''}
             </div>
             <div class="prompt-panel-actions">
-              <button type="button" class="btn-compare-prompt" title="개선된 프롬프트와 현재 기본 설정 프롬프트 나란히 비교">✨ 프롬프트 개선</button>
+              <button type="button" class="btn-compare-prompt" title="개선된 프롬프트와 기본 설정 프롬프트 나란히 비교">✨ 프롬프트 개선</button>
               <button type="button" class="copy-btn">복사</button>
             </div>
           </div>
@@ -219,7 +180,7 @@ function renderDeptTabs() {
           <!-- Side-by-Side 비교 뷰 (프롬프트 개선 클릭 시 표시) -->
           <div class="prompt-compare-view" style="display: none;">
             <div class="prompt-compare-grid">
-              <!-- 왼쪽: 현재 기본 설정 프롬프트 (실무자 기준 프롬프트) -->
+              <!-- 왼쪽: 기본 설정 프롬프트 -->
               <div class="compare-col compare-col-default">
                 <div class="compare-col-header">
                   <span class="compare-col-tag compare-tag-default">기본 설정 프롬프트</span>
@@ -232,10 +193,7 @@ function renderDeptTabs() {
               <div class="compare-col compare-col-improved">
                 <div class="compare-col-header">
                   <span class="compare-col-tag compare-tag-improved">개선된 프롬프트 (추천)</span>
-                  <div style="display: flex; gap: 4px;">
-                    <button type="button" class="btn-apply-improved" title="이 개선된 프롬프트를 나의 기본 설정 프롬프트로 적용">기본값 적용</button>
-                    <button type="button" class="copy-btn btn-mini-copy" data-target="#improved-text-${promptId}">복사</button>
-                  </div>
+                  <button type="button" class="copy-btn btn-mini-copy" data-target="#improved-text-${promptId}">복사</button>
                 </div>
                 <div class="compare-col-body" id="improved-text-${promptId}">${improvedText}</div>
               </div>
@@ -254,14 +212,14 @@ function renderDeptTabs() {
 }
 
 /**
- * 프롬프트 개선 비교 뷰 토글 및 기본값 적용 이벤트 바인딩
+ * 프롬프트 개선 비교 뷰 토글 이벤트 바인딩
  */
 function setupPromptCompareEvents() {
   const contentContainer = document.getElementById('deptTabContent');
   if (!contentContainer) return;
 
   contentContainer.addEventListener('click', (e) => {
-    // 1. [✨ 프롬프트 개선] 비교 버튼 클릭 시 토글
+    // [✨ 프롬프트 개선] 비교 버튼 클릭 시 토글
     const compareBtn = e.target.closest('.btn-compare-prompt');
     if (compareBtn) {
       const panel = compareBtn.closest('.prompt-panel-dark');
@@ -284,32 +242,6 @@ function setupPromptCompareEvents() {
         compareBtn.innerHTML = '✕ 비교 닫기';
         compareBtn.classList.add('active');
       }
-      return;
-    }
-
-    // 2. [기본값 적용] 개선된 프롬프트 채택 클릭 시
-    const applyBtn = e.target.closest('.btn-apply-improved');
-    if (applyBtn) {
-      const panel = applyBtn.closest('.prompt-panel-dark');
-      if (!panel) return;
-
-      const promptId = panel.getAttribute('data-prompt-id');
-      const improvedText = decodeURIComponent(panel.getAttribute('data-improved-text') || '');
-      const contentEl = panel.querySelector('.prompt-panel-content');
-      const currentDefaultCol = panel.querySelector(`#current-default-text-${promptId}`);
-      const badgeSlot = panel.querySelector('.badge-slot');
-
-      // 로컬스토리지에 영구 저장 (새로운 기본 설정 프롬프트로 지정)
-      savePromptText(promptId, improvedText);
-
-      contentEl.innerText = improvedText;
-      if (currentDefaultCol) currentDefaultCol.innerText = improvedText;
-      badgeSlot.innerHTML = '<span class="badge-customized">사용자 설정됨</span>';
-
-      if (window.showToast) {
-        window.showToast('개선된 프롬프트가 기본 설정 프롬프트로 적용되었습니다!');
-      }
-      return;
     }
   });
 }
@@ -424,7 +356,7 @@ function setupTabEvents() {
 }
 
 /**
- * 용어 사전 FAQ 아코디언 렌더링
+ * 핵심 실무 용어 사전 2열 인터랙티브 그리드 렌더링
  */
 function renderGlossary() {
   const container = document.getElementById('glossaryContainer');
@@ -433,30 +365,15 @@ function renderGlossary() {
   container.innerHTML = LECTURE_DATA.glossary.map((item, index) => {
     const num = String(index + 1).padStart(2, '0');
     return `
-      <div class="faq-row ${index === 0 ? 'open' : ''}">
-        <div class="faq-header">
-          <div class="faq-title">
-            <span style="font-size: 13px; color: var(--colors-ink-muted-48); font-family: var(--font-mono);">${num}</span>
-            <span>${item.term}</span>
-          </div>
-          <span class="faq-chevron">▼</span>
+      <div class="glossary-card">
+        <div class="glossary-card-header">
+          <span class="glossary-card-num">${num}</span>
+          <h3 class="glossary-card-term">${item.term}</h3>
         </div>
-        <div class="faq-body">
-          ${item.desc}
-        </div>
+        <p class="glossary-card-desc">${item.desc}</p>
       </div>
     `;
   }).join('');
-
-  container.addEventListener('click', (e) => {
-    const header = e.target.closest('.faq-header');
-    if (!header) return;
-
-    const item = header.closest('.faq-row');
-    if (item) {
-      item.classList.toggle('open');
-    }
-  });
 }
 
 /**
@@ -508,6 +425,14 @@ function setupLightbox() {
       const fileName = src.split('/').pop() || 'sample-image.png';
       downloadLink.setAttribute('download', fileName);
     }
+
+    // QR코드 등 컴팩트 뷰가 필요한 경우 전용 클래스 적용
+    if (src.toLowerCase().includes('qrcode')) {
+      modal.classList.add('is-compact-mode');
+    } else {
+      modal.classList.remove('is-compact-mode');
+    }
+
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -515,6 +440,7 @@ function setupLightbox() {
 
   const closeLightbox = () => {
     modal.classList.remove('active');
+    modal.classList.remove('is-compact-mode');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     setTimeout(() => {

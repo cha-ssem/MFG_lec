@@ -157,6 +157,21 @@
   transition: background-color var(--transition-fast);
 }
 
+button.dropdown-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.14);
+  margin: 6px 4px;
+}
+
 .dropdown-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
@@ -387,10 +402,18 @@
 
 .tab-nav {
   display: flex;
-  gap: 8px;
+  flex-wrap: nowrap;
+  gap: 6px;
   justify-content: center;
+  align-items: center;
   margin-block: var(--spacing-lg);
   overflow-x: auto;
+  scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.tab-nav::-webkit-scrollbar {
+  display: none; /* Chrome, Safari 스크롤바 숨김 */
 }
 
 .tab-btn {
@@ -398,13 +421,15 @@
   border: 1px solid var(--colors-hairline);
   color: var(--colors-ink-muted-80);
   font-family: inherit;
-  font-size: 14px;
-  font-weight: var(--weight-regular);
-  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  padding: 6px 12px;
   border-radius: var(--rounded-pill);
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab-btn:hover {
@@ -709,6 +734,78 @@
   display: block;
 }
 
+/* 2열 인터랙티브 용어 사전 카드 그리드 (한눈에 스캔하는 치트시트) */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: var(--spacing-lg);
+  text-align: left;
+}
+
+.glossary-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--rounded-md);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+}
+
+.glossary-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 102, 204, 0.35);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.07);
+}
+
+.glossary-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.glossary-card-num {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--colors-primary);
+  background-color: rgba(0, 102, 204, 0.08);
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  padding: 2px 8px;
+  border-radius: var(--rounded-pill);
+  flex-shrink: 0;
+}
+
+.glossary-card-term {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--colors-ink);
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.glossary-card-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--colors-ink-muted-80);
+  margin: 0;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .glossary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .glossary-card {
+    padding: 16px 18px;
+  }
+}
+
 /* Toast */
 .toast-container {
   position: fixed;
@@ -839,6 +936,21 @@
   font-size: 13.5px;
   font-weight: 500;
   transition: all var(--transition-fast);
+}
+
+button.floating-nav-link {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.floating-nav-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 6px 8px;
 }
 
 .floating-nav-link:hover {
@@ -1234,6 +1346,90 @@
   color: #a1a1a6;
 }
 
+/* 갤러리 v1 -> v2 확장·개선 비교 래퍼 */
+.infographic-gallery-compare {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block: var(--spacing-lg);
+}
+
+.infographic-gallery-compare .gallery-item-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.gallery-compare-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-inline: 4px;
+  gap: 6px;
+  z-index: 2;
+}
+
+.gallery-compare-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2997ff;
+  background: rgba(41, 151, 255, 0.15);
+  border: 1px solid rgba(41, 151, 255, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--rounded-pill);
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-compare-arrow {
+  color: #2997ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 6px rgba(41, 151, 255, 0.4));
+  animation: pulseCompareArrow 2s infinite ease-in-out;
+}
+
+@keyframes pulseCompareArrow {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@media (max-width: 900px) {
+  .infographic-gallery-compare {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .infographic-gallery-compare .gallery-item-card {
+    width: 100%;
+  }
+
+  .gallery-compare-connector {
+    margin-block: 6px;
+  }
+
+  .gallery-compare-arrow {
+    transform: rotate(90deg);
+  }
+
+  @keyframes pulseCompareArrow {
+    0%, 100% {
+      transform: translateY(0) rotate(90deg);
+    }
+    50% {
+      transform: translateY(5px) rotate(90deg);
+    }
+  }
+}
+
 /* ==========================================================================
    Image Lightbox Modal (Apple Dark Blur Style)
    ========================================================================== */
@@ -1324,6 +1520,17 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.15);
   background-color: #1a1a1c;
+  transition: max-width 0.2s ease, max-height 0.2s ease;
+}
+
+/* QR코드 전용 컴팩트 뷰 (스마트폰 스캔 및 화면 비율 최적화) */
+.lightbox-modal.is-compact-mode .lightbox-image {
+  max-width: min(340px, 78vw);
+  max-height: 48vh;
+  border-radius: 16px;
+  background-color: #ffffff;
+  padding: 12px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
 }
 
 .lightbox-caption {
@@ -1698,17 +1905,25 @@
     font-size: 12px;
   }
 
-  /* 7. 부서별 프롬프트 탭 스크롤 & 터치 */
+  /* 7. 부서별 프롬프트 탭 1줄 유지 & 스크롤바 숨김 */
   .tab-nav {
     justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 4px;
     padding-inline: 4px;
     padding-bottom: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
 
+  .tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+
   .tab-btn {
-    padding: 6px 14px;
-    font-size: 13px;
+    padding: 5px 9px;
+    font-size: 12px;
   }
 
   .refine-chips {
