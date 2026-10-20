@@ -675,6 +675,125 @@ button.dropdown-item {
   background-color: rgba(41, 151, 255, 0.1);
 }
 
+/* PC에서는 모바일 비교 카드 뷰 숨김 */
+.comparison-mobile-cards {
+  display: none;
+}
+
+/* 스마트폰 전용 비교 카드 반응형 (가로 스크롤 표 대신 직관적인 세로 비교 카드 전환) */
+@media (max-width: 768px) {
+  .comparison-table-wrapper {
+    display: none;
+  }
+
+  .comparison-mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .compare-mobile-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--rounded-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .compare-mobile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .compare-mobile-task-badge {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--colors-primary-on-dark);
+    background: rgba(41, 151, 255, 0.15);
+    border: 1px solid rgba(41, 151, 255, 0.3);
+    padding: 2px 7px;
+    border-radius: var(--rounded-pill);
+    flex-shrink: 0;
+  }
+
+  .compare-mobile-task-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  .compare-mobile-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .compare-mobile-item {
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .compare-mobile-item.item-web {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .compare-mobile-item.item-code {
+    background-color: rgba(41, 151, 255, 0.08);
+    border: 1px solid rgba(41, 151, 255, 0.35);
+    border-left: 3px solid #2997ff;
+  }
+
+  .compare-mobile-item-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .compare-mobile-item.item-code .compare-mobile-item-label {
+    color: var(--colors-primary-on-dark);
+  }
+
+  .compare-mobile-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: #a1a1a6;
+  }
+
+  .compare-mobile-item.item-code .compare-mobile-sub {
+    color: rgba(41, 151, 255, 0.85);
+  }
+
+  .compare-mobile-item-desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #d6d6d6;
+    margin: 0;
+    word-break: keep-all;
+  }
+
+  .compare-mobile-item.item-code .compare-mobile-item-desc {
+    color: #f5f5f7;
+    font-weight: 500;
+  }
+}
+
 /* ==========================================================================
    Accordion (Apple Style Clean Rows)
    ========================================================================== */

@@ -314,19 +314,51 @@ function renderSafetyRules() {
 }
 
 /**
- * Claude.ai vs Claude Code 업무 상황별 비교 테이블 렌더링
+ * Claude.ai vs Claude Code 업무 상황별 비교 테이블 & 모바일 반응형 카드 렌더링
  */
 function renderComparisonTable() {
-  const container = document.getElementById('comparisonTableBody');
-  if (!container || !LECTURE_DATA.comparisonTable) return;
+  const tableBody = document.getElementById('comparisonTableBody');
+  const mobileCards = document.getElementById('comparisonMobileCards');
+  if (!LECTURE_DATA.comparisonTable) return;
 
-  container.innerHTML = LECTURE_DATA.comparisonTable.map(row => `
-    <tr>
-      <td><strong>${row.task}</strong></td>
-      <td>${row.claudeWeb}</td>
-      <td class="col-highlight"><strong style="color: var(--colors-primary);">${row.claudeCode}</strong></td>
-    </tr>
-  `).join('');
+  // 1. PC 및 태블릿용 와이드 3열 테이블 렌더링
+  if (tableBody) {
+    tableBody.innerHTML = LECTURE_DATA.comparisonTable.map(row => `
+      <tr>
+        <td><strong>${row.task}</strong></td>
+        <td>${row.claudeWeb}</td>
+        <td class="col-highlight"><strong style="color: var(--colors-primary-on-dark);">${row.claudeCode}</strong></td>
+      </tr>
+    `).join('');
+  }
+
+  // 2. 스마트폰 전용 세로형 비교 카드 뷰 렌더링 (가로 스크롤 없이 한눈에 비교)
+  if (mobileCards) {
+    mobileCards.innerHTML = LECTURE_DATA.comparisonTable.map((row, idx) => `
+      <div class="compare-mobile-card">
+        <div class="compare-mobile-card-header">
+          <span class="compare-mobile-task-badge">${String(idx + 1).padStart(2, '0')}</span>
+          <h4 class="compare-mobile-task-title">${row.task}</h4>
+        </div>
+        <div class="compare-mobile-card-body">
+          <div class="compare-mobile-item item-web">
+            <div class="compare-mobile-item-label">
+              <span>💬 Claude.ai</span>
+              <span class="compare-mobile-sub">웹 대화형 서비스</span>
+            </div>
+            <p class="compare-mobile-item-desc">${row.claudeWeb}</p>
+          </div>
+          <div class="compare-mobile-item item-code">
+            <div class="compare-mobile-item-label">
+              <span>⚡ Claude Code</span>
+              <span class="compare-mobile-sub">터미널 에이전트 도구</span>
+            </div>
+            <p class="compare-mobile-item-desc">${row.claudeCode}</p>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
 }
 
 /**
