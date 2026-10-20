@@ -1284,6 +1284,7 @@ button.floating-nav-link {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
+  min-height: 160px;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -1412,15 +1413,21 @@ button.floating-nav-link {
 @media (max-width: 900px) {
   .infographic-gallery-compare {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
 
   .infographic-gallery-compare .gallery-item-card {
     width: 100%;
+    flex: none;
+    min-width: 100%;
+  }
+
+  .gallery-thumb-wrapper {
+    min-height: 180px;
   }
 
   .gallery-compare-connector {
-    margin-block: 6px;
+    margin-block: 8px;
   }
 
   .gallery-compare-arrow {
